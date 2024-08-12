@@ -1,16 +1,13 @@
 {
     "version": 2,
-    "functions": {
-      "api/dish.js": {
-        "runtime": "@vercel/node"
-      },
-      "api/user.js": {
-        "runtime": "@vercel/node"
-      }
-    },
+    "name": "music-album",
+    "builds": [
+       { "src": "index.js", "use": "@vercel/node" }
+    ],
     "routes": [
-      { "src": "/api/dish", "dest": "/api/dish.js" },
-      { "src": "/api/user", "dest": "/api/user.js" }
+       { "src": "/(.*)", "dest": "/index.js" },
+       { "src": "/api/dish", "dest": "/api/dish.js" },
+       { "src": "/api/user", "dest": "/api/user.js" }
     ]
-  }
+ }
   
