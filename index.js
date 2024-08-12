@@ -9,7 +9,7 @@ const app = express();
 //middleware
 app.use(cors());
 app.use(express.json());
-const PORT = process.env.PORT || 4000;
+
 const URL = process.env.MongoDBURL;
 //connect to mongodb
 try {
@@ -24,7 +24,3 @@ try {
 //defining routes
 app.use("/dish", dishRoute);
 app.use("/user", userRoute);
-
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
