@@ -13,7 +13,7 @@ export const Contextprovider = ({ children }) => {
   useEffect(() => {
     const getdish = async () => {
       try {
-        const res = await axios.get("/dish");
+        const res = await axios.get("https://suruchi-eight.vercel.app/dish");
         console.log(res.data);
         setdish(res.data);
       } catch (error) {
