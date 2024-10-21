@@ -1,26 +1,40 @@
 import express from "express";
 import mongoose from "mongoose";
+import path from "path";
 import "dotenv/config";
 import dishRoute from "./Route/dish.route.js";
 import cors from "cors";
 import userRoute from "./Route/user.route.js";
 
 const app = express();
-//middleware
+const __dirname = path.resolve();
+// Middleware
 app.use(cors());
 app.use(express.json());
 
 const URL = process.env.MongoDBURL;
-//connect to mongodb
+const PORT = process.env.PORT || 4000;
+// Connect to MongoDB
 try {
   mongoose.connect(URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  console.log("connected to mongodb");
+  console.log("Connected to MongoDB");
 } catch (error) {
-  console.log("error", error);
+  console.log("Error:", error);
 }
-//defining routes
+
+// Define API routes
 app.use("/dish", dishRoute);
 app.use("/user", userRoute);
+app.use("/images", express.static(path.join(__dirname, "/frontend/images")));
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`App listening on port 3000`);
+});
